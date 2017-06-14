@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css?family=Mogra");
+body {
+  background: rgba(0, 0, 0, 0.8); }
+
+.container-fluid .title {
+  text-align: center;
+  font-family: 'Mogra', cursive;
+  color: white;
+  font-size: 80px;
+  margin-top: 25px; }
+  @media (max-width: 768px) {
+    .container-fluid .title {
+      font-size: 60px; } }
+
+.container-fluid .timer-ctrls {
+  margin-top: 30px; }
+  .container-fluid .timer-ctrls .col-sm-6 .border {
+    border: 5px solid darkgreen;
+    background: darkred;
+    height: auto;
+    width: auto;
+    margin-left: 150px;
+    margin-right: 150px; }
+    @media (max-width: 1200px) {
+      .container-fluid .timer-ctrls .col-sm-6 .border {
+        width: auto;
+        margin: 50px;
+        margin-top: 20px; } }
+    @media (max-width: 768px) {
+      .container-fluid .timer-ctrls .col-sm-6 .border {
+        margin: 0;
+        margin-top: 50px; } }
+  .container-fluid .timer-ctrls .col-sm-6 h2 {
+    text-align: center;
+    color: white; }
+  .container-fluid .timer-ctrls .col-sm-6 .input-group {
+    justify-content: center;
+    color: white; }
+    .container-fluid .timer-ctrls .col-sm-6 .input-group button {
+      font-size: 50px;
+      background: none;
+      border: none;
+      outline: none;
+      color: white;
+      cursor: pointer; }
+    .container-fluid .timer-ctrls .col-sm-6 .input-group #break-ctrl-display {
+      font-size: 50px; }
+    .container-fluid .timer-ctrls .col-sm-6 .input-group #session-ctrl-display {
+      font-size: 50px; }
+
+.container-fluid #timer {
+  position: relative;
+  margin: 50px auto;
+  width: 500px;
+  height: 500px;
+  overflow: hidden;
+  border: 5px solid darkgreen;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center; }
+  @media (max-width: 768px) {
+    .container-fluid #timer {
+      width: 300px;
+      height: 300px; } }
+  @media (max-width: 375px) {
+    .container-fluid #timer {
+      width: 250px;
+      height: 250px; } }
+  .container-fluid #timer .filler {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 0%;
+    width: 100%;
+    border-radius: 0%;
+    z-index: -1;
+    background-color: darkgreen; }
+  .container-fluid #timer .input-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around; }
+    .container-fluid #timer .input-group .input-group-btn {
+      color: white;
+      text-align: center;
+      font-family: 'Mogra', cursive; }
+      .container-fluid #timer .input-group .input-group-btn h2 {
+        font-size: 50px; }

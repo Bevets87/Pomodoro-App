@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
+  </head>
+  <body>
+    <div class="container-fluid">
+      <h1 class="title">Pomodoro Timer</h1>
+      <div class="row timer-ctrls">
+        <div class="col col-sm-6">
+          <div class="border">
+          <h2>Break Time</h2>
+          <div class="input-group">
+            <span class="input-group-btn">
+              <button id="break-minus" class="btn btn-secondary" type="button">-</button>
+            </span>
+            <span class="input-group-btn">
+              <h2 id="break-display">05</h2>
+            </span>
+            <span class="input-group-btn">
+              <button id="break-plus" class="btn btn-secondary" type="button">+</button>
+            </span>
+          </div>
+          </div>
+        </div>
+        <div class="col col-sm-6">
+          <div class="border">
+          <h2>Session Time</h2>
+          <div class="input-group">
+            <span class="input-group-btn">
+              <button id="session-minus" class="btn btn-secondary" type="button">-</button>
+            </span>
+            <span class="input-group-btn">
+              <h2 id="session-display">25</h2>
+            </span>
+            <span class="input-group-btn">
+              <button id="session-plus" class="btn btn-secondary" type="button">+</button>
+            </span>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div id="timer">
+        <div class="filler"></div>
+        <div class="input-group">
+          <span class="input-group-btn">
+            <h2 id="timer-type">session</h2>
+          </span>
+          <span class="input-group-btn">
+            <h2><span id="minutes">25</span>:<span id="seconds">00</span></h2>
+          </span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <script src="js/model.js"></script>
+    <script src="js/view.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
