@@ -14,38 +14,40 @@ body {
 
 .container-fluid .timer-ctrls {
   margin-top: 30px; }
-  .container-fluid .timer-ctrls .col-sm-6 .border {
+  .container-fluid .timer-ctrls .col-md-6 .border {
     border: 5px solid darkgreen;
     background: darkred;
     height: auto;
     width: auto;
     margin-left: 150px;
-    margin-right: 150px; }
+    margin-right: 150px;
+    padding-top: 10px;
+    padding-bottom: 10px; }
     @media (max-width: 1200px) {
-      .container-fluid .timer-ctrls .col-sm-6 .border {
+      .container-fluid .timer-ctrls .col-md-6 .border {
         width: auto;
         margin: 50px;
         margin-top: 20px; } }
     @media (max-width: 768px) {
-      .container-fluid .timer-ctrls .col-sm-6 .border {
-        margin: 0;
+      .container-fluid .timer-ctrls .col-md-6 .border {
+        margin: 0 auto;
         margin-top: 50px; } }
-  .container-fluid .timer-ctrls .col-sm-6 h2 {
+  .container-fluid .timer-ctrls .col-md-6 h2 {
     text-align: center;
     color: white; }
-  .container-fluid .timer-ctrls .col-sm-6 .input-group {
+  .container-fluid .timer-ctrls .col-md-6 .input-group {
     justify-content: center;
     color: white; }
-    .container-fluid .timer-ctrls .col-sm-6 .input-group button {
+    .container-fluid .timer-ctrls .col-md-6 .input-group button {
       font-size: 50px;
       background: none;
       border: none;
       outline: none;
       color: white;
       cursor: pointer; }
-    .container-fluid .timer-ctrls .col-sm-6 .input-group #break-ctrl-display {
+    .container-fluid .timer-ctrls .col-md-6 .input-group #break-ctrl-display {
       font-size: 50px; }
-    .container-fluid .timer-ctrls .col-sm-6 .input-group #session-ctrl-display {
+    .container-fluid .timer-ctrls .col-md-6 .input-group #session-ctrl-display {
       font-size: 50px; }
 
 .container-fluid #timer {

@@ -1,5 +1,5 @@
 # Pomodoro-App
-[https://bevets87.github.io/Pomodoro-App/](https://bevets87.github.io/Pomodoro-App/)
+[]()
 
 ### User Stories:
 
