@@ -14,7 +14,7 @@ body {
 
 .container-fluid .timer-ctrls {
   margin-top: 30px; }
-  .container-fluid .timer-ctrls .col-md-6 .border {
+  .container-fluid .timer-ctrls .col-md-6 .container.border {
     border: 5px solid darkgreen;
     background: darkred;
     height: auto;
@@ -23,14 +23,15 @@ body {
     margin-right: 150px;
     padding-top: 10px; }
     @media (max-width: 1200px) {
-      .container-fluid .timer-ctrls .col-md-6 .border {
+      .container-fluid .timer-ctrls .col-md-6 .container.border {
         width: auto;
         margin: 50px;
         margin-top: 20px; } }
     @media (max-width: 768px) {
-      .container-fluid .timer-ctrls .col-md-6 .border {
+      .container-fluid .timer-ctrls .col-md-6 .container.border {
         margin: 0 auto;
-        margin-top: 50px; } }
+        margin-top: 50px;
+        overflow-y: scroll; } }
   .container-fluid .timer-ctrls .col-md-6 h2 {
     text-align: center;
     color: white; }
