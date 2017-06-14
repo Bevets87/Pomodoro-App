@@ -21,8 +21,7 @@ body {
     width: auto;
     margin-left: 150px;
     margin-right: 150px;
-    padding-top: 10px;
-    padding-bottom: 10px; }
+    padding-top: 10px; }
     @media (max-width: 1200px) {
       .container-fluid .timer-ctrls .col-md-6 .border {
         width: auto;
@@ -37,7 +36,8 @@ body {
     color: white; }
   .container-fluid .timer-ctrls .col-md-6 .input-group {
     justify-content: center;
-    color: white; }
+    color: white;
+    margin-bottom: 10px; }
     .container-fluid .timer-ctrls .col-md-6 .input-group button {
       font-size: 50px;
       background: none;
