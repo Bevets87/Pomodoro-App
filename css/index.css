@@ -14,23 +14,6 @@ body {
 
 .container-fluid .timer-ctrls {
   margin-top: 30px; }
-  .container-fluid .timer-ctrls .col-md-6 .container.border {
-    border: 5px solid darkgreen;
-    background: darkred;
-    height: auto;
-    width: auto;
-    margin-left: 150px;
-    margin-right: 150px;
-    padding-top: 10px; }
-    @media (max-width: 1200px) {
-      .container-fluid .timer-ctrls .col-md-6 .container.border {
-        width: auto;
-        margin: 50px;
-        margin-top: 20px; } }
-    @media (max-width: 768px) {
-      .container-fluid .timer-ctrls .col-md-6 .container.border {
-        margin: 0 auto;
-        margin-top: 50px; } }
   .container-fluid .timer-ctrls .col-md-6 h2 {
     text-align: center;
     color: white; }
@@ -43,7 +26,7 @@ body {
       background: none;
       border: none;
       outline: none;
-      color: white;
+      color: darkgreen;
       cursor: pointer; }
     .container-fluid .timer-ctrls .col-md-6 .input-group #break-ctrl-display {
       font-size: 50px; }
