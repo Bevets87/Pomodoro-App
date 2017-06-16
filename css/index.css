@@ -14,24 +14,22 @@ body {
 
 .container-fluid .timer-ctrls {
   margin-top: 30px; }
-  .container-fluid .timer-ctrls .col-md-6 h2 {
+  .container-fluid .timer-ctrls .col-md-6 {
     text-align: center;
-    color: white; }
-  .container-fluid .timer-ctrls .col-md-6 .input-group {
-    justify-content: center;
     color: white;
-    margin-bottom: 10px; }
-    .container-fluid .timer-ctrls .col-md-6 .input-group button {
-      font-size: 50px;
+    margin-top: 20px; }
+    .container-fluid .timer-ctrls .col-md-6 h3 {
+      display: inline-block;
+      font-size: 30px; }
+    .container-fluid .timer-ctrls .col-md-6 button {
+      display: inline-block;
+      color: darkgreen;
       background: none;
       border: none;
       outline: none;
-      color: darkgreen;
       cursor: pointer; }
-    .container-fluid .timer-ctrls .col-md-6 .input-group #break-ctrl-display {
-      font-size: 50px; }
-    .container-fluid .timer-ctrls .col-md-6 .input-group #session-ctrl-display {
-      font-size: 50px; }
+      .container-fluid .timer-ctrls .col-md-6 button .fa {
+        font-size: 35px; }
 
 .container-fluid #timer {
   position: relative;
