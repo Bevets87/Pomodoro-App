@@ -43,7 +43,7 @@
         handler()
       })
     }
-    if (event === 'timer') {
+    if (event === 'startTimer') {
       self.$timer.addEventListener('click', function () {
         handler()
       })
@@ -52,23 +52,24 @@
 
   }
 
-  View.prototype.render = function (cmd, timer) {
+  View.prototype.render = function (cmd, param) {
     var self = this;
     var viewCommands = {
       'displayBreakTime': function () {
         self.$breakDisplay.innerText = '';
-        self.$breakDisplay.innerText = self.parseTime(timer.breakMinutes);
+        self.$breakDisplay.innerText = self.parseTime(param.breakMinutes);
       },
       'displaySessionTime': function () {
         self.$sessionDisplay.innerText = '';
-        self.$sessionDisplay.innerText = self.parseTime(timer.sessionMinutes);
+        self.$sessionDisplay.innerText = self.parseTime(param.sessionMinutes);
       },
       'displayTime': function () {
-        if (timer.totalTime) {
-          var totalTime = (timer.totalTime * 60);
-          var timeElapsed = totalTime - (timer.totalTime - timer.minutes) - (60 - timer.seconds);
-          var percentageComplete = (1 - (timeElapsed / totalTime));
-          switch (timer.type) {
+          var totalSeconds = param.totalMinutes * 60;
+          var minutesElapsed = param.totalMinutes - param.minutes;
+          var secondsElapsed = 60 - param.seconds;
+          var timeElapsed = (60 * (minutesElapsed - 1)) + secondsElapsed;
+          var percentageComplete = (timeElapsed/totalSeconds);
+          switch (param.type) {
           case 'SESSION':
             self.$filler[0].style.height = (percentageComplete * 100) +'%';
             self.$filler[0].style.backgroundColor = 'darkgreen';
@@ -78,13 +79,13 @@
             self.$filler[0].style.backgroundColor = 'darkred';
             break;
           }
-        }
+
         self.$timerType.innerText = '';
-        self.$timerType.innerText = timer.type.toLowerCase();
+        self.$timerType.innerText = param.type.toLowerCase();
         self.$minutesDisplay.innerText = '';
-        self.$minutesDisplay.innerText = self.parseTime(timer.minutes);
+        self.$minutesDisplay.innerText = self.parseTime(param.minutes);
         self.$secondsDisplay.innerText = '';
-        self.$secondsDisplay.innerText = self.parseTime(timer.seconds);
+        self.$secondsDisplay.innerText = self.parseTime(param.seconds);
       }
     }
     viewCommands[cmd]();

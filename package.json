@@ -4,11 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "scss": "node-sass --watch scss -o css"
+    "scss": "node-sass --watch scss -o css",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "author": "steve barton",
   "license": "ISC",
   "devDependencies": {
+    "jest": "^20.0.4",
     "node-sass": "^4.5.3"
   }
 }
