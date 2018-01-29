@@ -96,7 +96,7 @@
           percComplete: self._calcPercComplete(elapsedMins, elapsedSecs)
         })
       })
-    }, 300)
+    }, 1000)
   }
 
   Controller.prototype._switchSession = function () {
