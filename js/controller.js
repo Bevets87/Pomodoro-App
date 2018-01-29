@@ -54,7 +54,7 @@
   }
 
   Controller.prototype._setSessionTime = function (sessionTime) {
-    var self = this, { type, elapsedMins, elapsedSecs} = self.store.state
+    var self = this, { type, elapsedMins, elapsedSecs } = self.store.state
     self.store.setState({
       session: sessionTime,
       elapsedMins: type === 'session' ? sessionTime : elapsedMins,
