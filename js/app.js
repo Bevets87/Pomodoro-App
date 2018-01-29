@@ -3,10 +3,14 @@
   'use strict'
 
   function App () {
-    this.model = new app.Model();
-    this.view = new app.View()
-    this.controller = new app.Controller(this.model, this.view);
+    var self = this;
+
+    self.store = new app.Store()
+    self.view = new app.View()
+    self.controller = new app.Controller(self.store, self.view)
   }
 
   new App()
+
+
 }())

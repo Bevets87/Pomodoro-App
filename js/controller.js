@@ -2,155 +2,121 @@
 
   'use strict'
 
-  function Controller (model, view) {
+  function Controller (store, view) {
     var self = this;
-    self.model = model;
+
+    self.store = store;
     self.view = view;
 
-    self.view.bind('increaseBreakTime', function () {
-      clearInterval(self.model.state.start)
-      var initBreakMinutes = self.model.state.initBreakMinutes;
-      if (initBreakMinutes < 999) {
-        initBreakMinutes += 1;
-      }
-      self.model.setState({
-        initBreakMinutes: initBreakMinutes,
-        breakMinutes: initBreakMinutes,
-        breakSeconds: 0,
-        start: false
-      }, function (newState) {
-        self.view.render('displayBreakTime', {
-          breakMinutes: newState.initBreakMinutes
-        });
-      })
-    })
+    self.view.bind('decreaseSessionTime', function () {
+      var { session, startTick } = self.store.state
 
-    self.view.bind('decreaseBreakTime', function () {
-      clearInterval(self.model.state.start)
-      var initBreakMinutes = self.model.state.initBreakMinutes;
-      if (initBreakMinutes > 1) {
-        initBreakMinutes -= 1;
+      if (!startTick) {
+        self._setSessionTime(session > 1 ? --session : session)
       }
-      self.model.setState({
-        initBreakMinutes: initBreakMinutes,
-        breakMinutes: initBreakMinutes,
-        breakSeconds: 0,
-        start: false
-      }, function (newState) {
-        self.view.render('displayBreakTime', {
-          breakMinutes: newState.initBreakMinutes
-        });
-      })
     })
 
     self.view.bind('increaseSessionTime', function () {
-      clearInterval(self.model.state.start)
-      var initSessionMinutes = self.model.state.initSessionMinutes;
-      if (initSessionMinutes < 999) {
-        initSessionMinutes += 1;
-      }
-      self.model.setState({
-        initSessionMinutes: initSessionMinutes,
-        sessionMinutes: initSessionMinutes,
-        sessionSeconds: 0,
-        start: false
-      }, function (newState) {
-        self.view.render('displaySessionTime', {
-          sessionMinutes: newState.initSessionMinutes
-        });
-      })
+      var { session, startTick } = self.store.state
 
+      if (!startTick) {
+        self._setSessionTime(session < 999 ? ++session : session)
+      }
     })
 
-    self.view.bind('decreaseSessionTime', function () {
-      clearInterval(self.model.state.start)
-      var initSessionMinutes = self.model.state.initSessionMinutes
-      if (initSessionMinutes > 1) {
-        initSessionMinutes -= 1;
-      }
-      self.model.setState({
-        initSessionMinutes: initSessionMinutes,
-        sessionMinutes: initSessionMinutes,
-        sessionSeconds: 0,
-        start: false
-      }, function (newState) {
-        self.view.render('displaySessionTime', {
-          sessionMinutes: newState.initSessionMinutes
-        });
-      })
+    self.view.bind('increaseBrkTime', function () {
+      var { brk, startTick } = self.store.state
 
+      if (!startTick) {
+        self._setBrkTime(brk < 999 ? ++brk : brk)
+      }
     })
 
-    self.view.bind('startTimer', function () {
-      var start = self.model.state.start ? false : true;
-      if (start) {
-        self.model.state.start = setInterval(function () {
-          if (self.model.state.sessionMinutes < 1 && self.model.state.sessionSeconds === 0) {
-            self.model.setState({
-              type:'BREAK',
-              sessionMinutes: self.model.state.initSessionMinutes,
-              sessionSeconds: 0
-            })
-          }
-          if (self.model.state.breakMinutes < 1 && self.model.state.breakSeconds === 0) {
-            self.model.setState({
-              type:'SESSION',
-              breakMinutes: self.model.state.initBreakMinutes,
-              breakSeconds: 0
-            })
-          }
-          if (self.model.state.type === 'SESSION') {
-            var sessionMinutes = self.model.state.sessionMinutes;
-            var sessionSeconds = self.model.state.sessionSeconds;
-            sessionMinutes = sessionSeconds === 0 ? sessionMinutes -= 1 : sessionMinutes;
-            sessionSeconds = sessionSeconds === 0 ? sessionSeconds += 59 : sessionSeconds -= 1;
-            self.model.setState({
-              sessionSeconds: sessionSeconds,
-              sessionMinutes: sessionMinutes
-            }, function (newState) {
-              self.view.render('displayTime', {
-                totalMinutes: newState.initSessionMinutes,
-                seconds: newState.sessionSeconds,
-                minutes: newState.sessionMinutes,
-                type: 'SESSION'
-              })
-            })
-          } else {
-            var breakMinutes = self.model.state.breakMinutes;
-            var breakSeconds = self.model.state.breakSeconds;
-            breakMinutes = breakSeconds === 0 ? breakMinutes -= 1 : breakMinutes ;
-            breakSeconds = breakSeconds === 0 ? breakSeconds += 59 : breakSeconds -= 1;
-            self.model.setState({
-              breakMinutes: breakMinutes,
-              breakSeconds: breakSeconds,
-            }, function (newState) {
-              self.view.render('displayTime', {
-                totalMinutes: newState.initBreakMinutes,
-                seconds: newState.breakSeconds,
-                minutes: newState.breakMinutes,
-                type: 'BREAK'
-              })
-            })
-          }
-        }, 1000)
-        self.model.setState({start: self.model.state.start})
+    self.view.bind('decreaseBrkTime', function () {
+      var { brk, startTick } = self.store.state
+
+      if (!startTick) {
+        self._setBrkTime(brk > 1 ? --brk : brk)
+      }
+    })
+
+    self.view.bind('toggleTimer', function () {
+      var { startTick } = self.store.state
+
+      if (startTick) {
+        clearInterval(startTick)
+        self.store.setState({startTick: false})
       } else {
-        clearInterval(self.model.state.start)
-        self.model.setState({start: false})
+        self._tick()
       }
     })
 
   }
 
+  Controller.prototype._setSessionTime = function (sessionTime) {
+    var self = this, { type, elapsedMins, elapsedSecs} = self.store.state
+    self.store.setState({
+      session: sessionTime,
+      elapsedMins: type === 'session' ? sessionTime : elapsedMins,
+      elapsedSecs: type === 'session' ? 0 : elapsedSecs
+    }, function ({ session }) {
+      self.view.render('sessionTime', {session: session})
+    })
+  }
 
+  Controller.prototype._setBrkTime = function (brkTime) {
+    var self = this, { type, elapsedMins, elapsedSecs } = self.store.state
+    self.store.setState({
+      brk: brkTime,
+      elapsedMins: type === 'brk' ? brkTime : elapsedMins,
+      elapsedSecs: type === 'brk' ? 0 : elapsedSecs
+    }, function ({ brk }) {
+      self.view.render('brkTime', {brk: brk})
+    })
+  }
 
+  Controller.prototype._tick = function () {
+    var self = this,
+    handler = setInterval(function () {
+      var { elapsedMins, elapsedSecs, type } = self.store.state;
+      if (!elapsedMins && !elapsedSecs) {
+        var { elapsedMins, elapsedSecs, type } = self._switchSession()
+      }
+      self.store.setState({
+        elapsedMins: elapsedSecs == 0 && elapsedMins > 0 ? --elapsedMins : elapsedMins,
+        elapsedSecs: elapsedSecs == 0 ? 59 : --elapsedSecs,
+        startTick: handler,
+        type: type
+      },
+      function ({ elapsedMins, elapsedSecs, type }) {
+        self.view.render('tickerTime', {
+          elapsedMins: elapsedMins,
+          elapsedSecs: elapsedSecs,
+          type: type,
+          percComplete: self._calcPercComplete(elapsedMins, elapsedSecs)
+        })
+      })
+    }, 300)
+  }
 
+  Controller.prototype._switchSession = function () {
+    var self = this,
+    { session, brk, type } = self.store.state,
+    newState = self.store.setState({
+      elapsedMins: type == 'session' ? brk : session,
+      elapsedSecs: 0,
+      type: type == 'session' ? 'brk' : 'session'
+    })
+    return newState
+  }
 
-
-
-
-
-
+  Controller.prototype._calcPercComplete = function (elapsedMins, elapsedSecs) {
+    var self = this,
+    { type, session, brk } = self.store.state,
+    totalTime = type == 'session' ? session * 60 : brk * 60,
+    totalElapsed = totalTime - ((elapsedMins * 60) + elapsedSecs)
+    return (totalElapsed/totalTime) * 100
+  }
 
   window.app = window.app || {};
   window.app.Controller = Controller;

@@ -12,29 +12,22 @@
     this.$sessionDisplay = document.getElementById('session-display');
 
     this.$timer = document.getElementById('timer');
-    this.$timerType = document.getElementById('timer-type');
+    this.$type = document.getElementById('timer-type');
     this.$minutesDisplay = document.getElementById('minutes');
     this.$secondsDisplay = document.getElementById('seconds');
 
     this.$filler = document.querySelectorAll('.filler');
-
-
   }
 
   View.prototype.bind = function (event, handler) {
     var self = this;
-    if (event === 'increaseBreakTime') {
-      self.$breakPlus.addEventListener('click', function () {
-        handler()
-      })
-    }
-    if (event === 'decreaseBreakTime') {
-      self.$breakMinus.addEventListener('click', function () {
-        handler()
-      })
-    }
     if (event === 'increaseSessionTime') {
       self.$sessionPlus.addEventListener('click', function () {
+        handler()
+      })
+    }
+    if (event === 'increaseBrkTime') {
+      self.$breakPlus.addEventListener('click', function () {
         handler()
       })
     }
@@ -43,49 +36,44 @@
         handler()
       })
     }
-    if (event === 'startTimer') {
+    if (event === 'decreaseBrkTime') {
+      self.$breakMinus.addEventListener('click', function () {
+        handler()
+      })
+    }
+    if (event === 'toggleTimer') {
       self.$timer.addEventListener('click', function () {
         handler()
       })
     }
-
-
   }
 
   View.prototype.render = function (cmd, param) {
     var self = this;
     var viewCommands = {
-      'displayBreakTime': function () {
-        self.$breakDisplay.innerText = '';
-        self.$breakDisplay.innerText = self.parseTime(param.breakMinutes);
-      },
-      'displaySessionTime': function () {
-        self.$sessionDisplay.innerText = '';
-        self.$sessionDisplay.innerText = self.parseTime(param.sessionMinutes);
-      },
-      'displayTime': function () {
-          var totalSeconds = param.totalMinutes * 60;
-          var minutesElapsed = param.totalMinutes - param.minutes;
-          var secondsElapsed = 60 - param.seconds;
-          var timeElapsed = (60 * (minutesElapsed - 1)) + secondsElapsed;
-          var percentageComplete = (timeElapsed/totalSeconds);
-          switch (param.type) {
-          case 'SESSION':
-            self.$filler[0].style.height = (percentageComplete * 100) +'%';
-            self.$filler[0].style.backgroundColor = 'darkgreen';
-            break;
-          case 'BREAK':
-            self.$filler[0].style.height = (percentageComplete * 100) +'%';
-            self.$filler[0].style.backgroundColor = 'darkred';
-            break;
-          }
+      'brkTime': function () {
+        var { brk } = param
 
-        self.$timerType.innerText = '';
-        self.$timerType.innerText = param.type.toLowerCase();
+        self.$breakDisplay.innerText = '';
+        self.$breakDisplay.innerText = self.parseTime(brk);
+      },
+      'sessionTime': function () {
+        var { session } = param
+
+        self.$sessionDisplay.innerText = '';
+        self.$sessionDisplay.innerText = self.parseTime(session);
+      },
+      'tickerTime': function () {
+        var { elapsedMins, elapsedSecs, type, percComplete } = param
+
+        self.$filler[0].style.height = percComplete +'%';
+        self.$filler[0].style.backgroundColor = type === 'session' ? 'darkgreen' : 'darkred';
+        self.$type.innerText = '';
+        self.$type.innerText = type.toLowerCase();
         self.$minutesDisplay.innerText = '';
-        self.$minutesDisplay.innerText = self.parseTime(param.minutes);
+        self.$minutesDisplay.innerText = self.parseTime(elapsedMins);
         self.$secondsDisplay.innerText = '';
-        self.$secondsDisplay.innerText = self.parseTime(param.seconds);
+        self.$secondsDisplay.innerText = self.parseTime(elapsedSecs);
       }
     }
     viewCommands[cmd]();
