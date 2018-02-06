@@ -64,12 +64,12 @@
         self.$sessionDisplay.innerText = self.parseTime(session);
       },
       'tickerTime': function () {
-        var { elapsedMins, elapsedSecs, type, percComplete } = param
+        var { elapsedMins, elapsedSecs, timerMode, percComplete } = param
 
         self.$filler[0].style.height = percComplete +'%';
-        self.$filler[0].style.backgroundColor = type === 'session' ? 'darkgreen' : 'darkred';
+        self.$filler[0].style.backgroundColor = timerMode === 'session' ? 'darkgreen' : 'darkred';
         self.$type.innerText = '';
-        self.$type.innerText = type.toLowerCase();
+        self.$type.innerText = timerMode === 'session' ? 'session' : 'break';
         self.$minutesDisplay.innerText = '';
         self.$minutesDisplay.innerText = self.parseTime(elapsedMins);
         self.$secondsDisplay.innerText = '';
